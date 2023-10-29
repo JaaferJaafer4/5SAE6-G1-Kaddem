@@ -20,6 +20,7 @@ public class Departement implements Serializable{
         // TODO Auto-generated constructor stub
     }
 
+
     public Departement(String nomDepart) {
         super();
         this.nomDepart = nomDepart;
