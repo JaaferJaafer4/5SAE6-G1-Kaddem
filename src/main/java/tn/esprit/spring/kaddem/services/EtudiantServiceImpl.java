@@ -1,5 +1,6 @@
 package tn.esprit.spring.kaddem.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +17,21 @@ import tn.esprit.spring.kaddem.repositories.EtudiantRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class EtudiantServiceImpl implements IEtudiantService{
-	@Autowired
-	EtudiantRepository etudiantRepository ;
-	@Autowired
-	ContratRepository contratRepository;
-	@Autowired
-	EquipeRepository equipeRepository;
-    @Autowired
-    DepartementRepository departementRepository;
+
+	private EtudiantRepository etudiantRepository ;
+
+	private ContratRepository contratRepository;
+
+	private EquipeRepository equipeRepository;
+
+    private DepartementRepository departementRepository;
+
 	public List<Etudiant> retrieveAllEtudiants(){
 	return (List<Etudiant>) etudiantRepository.findAll();
 	}
@@ -58,12 +61,23 @@ public class EtudiantServiceImpl implements IEtudiantService{
 	}
 	@Transactional
 	public Etudiant addAndAssignEtudiantToEquipeAndContract(Etudiant e, Integer idContrat, Integer idEquipe){
-		Contrat c=contratRepository.findById(idContrat).orElse(null);
-		Equipe eq=equipeRepository.findById(idEquipe).orElse(null);
-		c.setEtudiant(e);
-		eq.getEtudiants().add(e);
-return e;
+		Contrat c = contratRepository.findById(idContrat).orElse(null);
+		Equipe eq = equipeRepository.findById(idEquipe).orElse(null);
+
+		if (c != null) {
+			c.setEtudiant(e);
+			contratRepository.save(c); // Save the updated contrat
+		}
+
+		if (eq != null) {
+			eq.getEtudiants().add(e);
+			equipeRepository.save(eq); // Save the updated equipe
+		}
+
+		return e;
 	}
+
+
 
 	public 	List<Etudiant> getEtudiantsByDepartement (Integer idDepartement){
 return  etudiantRepository.findEtudiantsByDepartement_IdDepart((idDepartement));
