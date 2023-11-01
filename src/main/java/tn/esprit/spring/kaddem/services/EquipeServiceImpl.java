@@ -1,6 +1,7 @@
 package tn.esprit.spring.kaddem.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import tn.esprit.spring.kaddem.entities.Etudiant;
 import tn.esprit.spring.kaddem.entities.Niveau;
 import tn.esprit.spring.kaddem.repositories.EquipeRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Service
 public class EquipeServiceImpl implements IEquipeService{
-	EquipeRepository equipeRepository;
+	private EquipeRepository equipeRepository;
 
 
 	public List<Equipe> retrieveAllEquipes(){
@@ -42,21 +44,29 @@ public class EquipeServiceImpl implements IEquipeService{
 	}
 
 	public void evoluerEquipes(){
-		List<Equipe> equipes = (List<Equipe>) equipeRepository.findAll();
+		List<Equipe> equipes = new ArrayList<>();
+
+		equipeRepository.findAll().forEach(equipes::add);
+	//	List<Equipe> equipes = equipeRepository.findAll();
+
 		for (Equipe equipe : equipes) {
 			if ((equipe.getNiveau().equals(Niveau.JUNIOR)) || (equipe.getNiveau().equals(Niveau.SENIOR))) {
-				List<Etudiant> etudiants = (List<Etudiant>) equipe.getEtudiants();
+				Set<Etudiant> etudiants =  equipe.getEtudiants();
 				Integer nbEtudiantsAvecContratsActifs=0;
 				for (Etudiant etudiant : etudiants) {
 					Set<Contrat> contrats = etudiant.getContrats();
 					//Set<Contrat> contratsActifs=null;
 					for (Contrat contrat : contrats) {
 						Date dateSysteme = new Date();
+
 						long difference_In_Time = dateSysteme.getTime() - contrat.getDateFinContrat().getTime();
+
 						long difference_In_Years = (difference_In_Time / (1000l * 60 * 60 * 24 * 365));
+                        difference_In_Years += 1901l;
 						if ((contrat.getArchive() == false) && (difference_In_Years > 1)) {
 							//	contratsActifs.add(contrat);
 							nbEtudiantsAvecContratsActifs++;
+
 							break;
 						}
 						if (nbEtudiantsAvecContratsActifs >= 3) break;

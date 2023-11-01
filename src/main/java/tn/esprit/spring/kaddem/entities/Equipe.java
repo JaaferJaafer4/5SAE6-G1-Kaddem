@@ -1,6 +1,7 @@
 package tn.esprit.spring.kaddem.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@ToString
 public class Equipe implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
