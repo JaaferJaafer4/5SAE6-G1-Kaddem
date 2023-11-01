@@ -16,6 +16,7 @@ import tn.esprit.spring.kaddem.repositories.EquipeRepository;
 import tn.esprit.spring.kaddem.repositories.EtudiantRepository;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -66,14 +67,16 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
 		if (c != null) {
 			c.setEtudiant(e);
-			contratRepository.save(c); // Save the updated contrat
+			contratRepository.save(c);
 		}
+
 
 		if (eq != null) {
+			if(eq.getEtudiants() == null)
+				eq.setEtudiants(new HashSet<>());
 			eq.getEtudiants().add(e);
-			equipeRepository.save(eq); // Save the updated equipe
+			equipeRepository.save(eq);
 		}
-
 		return e;
 	}
 

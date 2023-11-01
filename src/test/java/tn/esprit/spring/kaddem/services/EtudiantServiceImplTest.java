@@ -115,9 +115,9 @@ public class EtudiantServiceImplTest {
       Equipe equipe = new Equipe("Chess", Niveau.SENIOR);
 
     when(contratRepository.findById(idContrat)).thenReturn(Optional.of(contrat));
-   //  when(equipeRepository.findById(idEquipe)).thenReturn(Optional.of(equipe));
+     when(equipeRepository.findById(idEquipe)).thenReturn(Optional.of(equipe));
       when(contratRepository.save(contrat)).thenReturn(contrat);
-  //    when(equipeRepository.save(equipe)).thenReturn(equipe);
+      when(equipeRepository.save(equipe)).thenReturn(equipe);
 
         Etudiant result = etudiantService.addAndAssignEtudiantToEquipeAndContract(etudiant, idContrat, idEquipe);
 
