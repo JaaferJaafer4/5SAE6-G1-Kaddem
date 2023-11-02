@@ -10,18 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.kaddem.entities.*;
 import tn.esprit.spring.kaddem.repositories.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
 public class UniversiteServiceImplTest {
+
     @InjectMocks
     private UniversiteServiceImpl universiteService;
 
@@ -29,82 +26,100 @@ public class UniversiteServiceImplTest {
     private UniversiteRepository universiteRepository;
 
     @Mock
-    private ContratRepository contratRepository;
-
-    @Mock
-    private EquipeRepository equipeRepository;
-
-    @Mock
     private DepartementRepository departementRepository;
 
-
     @Test
-    public void testRetrieveAllUniversite() {
+    public void testRetrieveAllUniversites() {
 
-        List<Universite> universites = new ArrayList<>();
-        universites.add(new Universite(1,"esprit"));
-
-        when(universiteRepository.findAll()).thenReturn(universites);
+        List<Universite> sampleUniversites = new ArrayList<>();
+        when(universiteRepository.findAll()).thenReturn(sampleUniversites);
 
         List<Universite> result = universiteService.retrieveAllUniversites();
 
-        assertNotNull(result);
-        assertEquals(universites, result);
-
+        assertEquals(sampleUniversites, result);
     }
 
     @Test
     public void testAddUniversite() {
-        Universite universite = new Universite(1,"esprit");
-        when(universiteRepository.save(universite)).thenReturn(universite);
-        Universite result = universiteService.addUniversite(universite);
-        assertNotNull(result);
-        assertEquals(universite, result);
+
+        Universite sampleUniversite = new Universite();
+        when(universiteRepository.save(any(Universite.class))).thenReturn(sampleUniversite);
+
+        Universite result = universiteService.addUniversite(new Universite());
+
+        assertEquals(sampleUniversite, result);
+    }
+
+
+    @Test
+    public void testAssignUniversiteToDepartement() {
+
+        Universite sampleUniversite = new Universite();
+        Departement sampleDepartement = new Departement();
+        when(universiteRepository.findById(any(Integer.class))).thenReturn(Optional.of(sampleUniversite));
+        when(departementRepository.findById(any(Integer.class))).thenReturn(Optional.of(sampleDepartement));
+
+
+        universiteService.assignUniversiteToDepartement(1, 2);
+
+
+        assertTrue(sampleUniversite.getDepartements().contains(sampleDepartement));
+        verify(universiteRepository, times(1)).save(sampleUniversite);
     }
 
     @Test
     public void testUpdateUniversite() {
-        Universite universite = new Universite(1,"esprit");
-        when(universiteRepository.save(universite)).thenReturn(universite);
-        Universite result = universiteService.updateUniversite(universite);
-        assertNotNull(result);
-        assertEquals(universite, result);
+
+        Universite sampleUniversite = new Universite();
+        when(universiteRepository.save(any(Universite.class))).thenReturn(sampleUniversite);
+
+
+        Universite result = universiteService.updateUniversite(new Universite());
+
+        assertEquals(sampleUniversite, result);
     }
 
     @Test
     public void testRetrieveUniversite() {
-        int id = 1;
-        Universite universite = new Universite(1,"esprit");
-        when(universiteRepository.findById(id)).thenReturn(Optional.of(universite));
-        Universite result = universiteService.retrieveUniversite(id);
-        assertNotNull(result);
-        assertEquals(universite, result);
+
+        Universite sampleUniversite = new Universite();
+        when(universiteRepository.findById(any(Integer.class))).thenReturn(Optional.of(sampleUniversite));
+
+
+        Universite result = universiteService.retrieveUniversite(1);
+
+
+        assertEquals(sampleUniversite, result);
     }
 
     @Test
-    public void testRemoveUniversite() {
-        int id = 1;
-        Universite universite = new Universite(1,"esprit");
-        when(universiteRepository.findById(id)).thenReturn(Optional.of(universite));
-        universiteService.deleteUniversite(id);
-        verify(universiteRepository, times(1)).delete(universite);
+    public void testDeleteUniversite() {
+
+        Universite sampleUniversite = new Universite();
+        when(universiteRepository.findById(any(Integer.class))).thenReturn(Optional.of(sampleUniversite));
+
+
+        universiteService.deleteUniversite(1);
+
+        verify(universiteRepository, times(1)).delete(sampleUniversite);
     }
 
     @Test
-    public void testAssignUniversiteToDepartement() {
-        int universiteId = 1;
-        int departementId = 2;
-        Universite universite = new Universite(1,"esprit");
-        Departement departement = new Departement("Esprit");
+    public void testRetrieveDepartementsByUniversite() {
 
-        when(universiteRepository.findById(universiteId)).thenReturn(Optional.of(universite));
-        when(departementRepository.findById(departementId)).thenReturn(Optional.of(departement));
+        Universite sampleUniversite = new Universite();
+        Departement departement1 = new Departement();
+        Departement departement2 = new Departement();
+        sampleUniversite.setDepartements(new HashSet<>());
+        sampleUniversite.getDepartements().add(departement1);
+        sampleUniversite.getDepartements().add(departement2);
+        when(universiteRepository.findById(any(Integer.class))).thenReturn(Optional.of(sampleUniversite));
 
-        universiteService.assignUniversiteToDepartement(universiteId, departementId);
-        assertEquals(departement, universite.getDepartements());
+        Set<Departement> result = universiteService.retrieveDepartementsByUniversite(1);
+
+
+        assertEquals(2, result.size());
+        assertTrue(result.contains(departement1));
+        assertTrue(result.contains(departement2));
     }
-
-
-
-
 }
