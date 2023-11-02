@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import tn.esprit.spring.kaddem.entities.Departement;
 import tn.esprit.spring.kaddem.entities.Etudiant;
 import tn.esprit.spring.kaddem.entities.Option;
 import tn.esprit.spring.kaddem.entities.Universite;
@@ -21,7 +24,9 @@ import tn.esprit.spring.kaddem.services.IEtudiantService;
 import tn.esprit.spring.kaddem.services.IUniversiteService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertNotNull;
@@ -87,7 +92,7 @@ public class UniversiteRestControllerTest {
         Universite universite = new Universite(1, "esprit");
         when(universiteService.retrieveUniversite(universiteId)).thenReturn(universite);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/universite/retrieve-universite/{universite-id}", universiteId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/universite/retrieve-universite/"+universiteId, universiteId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -124,6 +129,19 @@ public class UniversiteRestControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
+    @Test
+    public void listerDepartementsUniversite() throws Exception {
+        int universiteId = 1;
+        Departement departement = new Departement("BlocG");
+        Set<Departement> list_departements = new HashSet<>();
+        list_departements.add(departement);
+        when(universiteService.retrieveDepartementsByUniversite(universiteId)).thenReturn(list_departements);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/universite/listerDepartementsUniversite/"+universiteId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));}
+
 
 
     private static String asJsonString(final Object obj) {
