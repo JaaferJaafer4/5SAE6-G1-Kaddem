@@ -14,7 +14,7 @@ pipeline {
         stage('Git'){
             steps{
                 echo "Getting project from git....."
-                git branch: 'JaafarJaafar-5SAE6-G1', credentialsId: 'githubToken', url: 'https://github.com/JaaferJaafer4/5SAE6-G1-Kaddem.git            }
+                git branch: 'JaafarJaafar-5SAE6-G1', credentialsId: 'githubToken', url: 'https://github.com/JaaferJaafer4/5SAE6-G1-Kaddem.git'           }
         }
            stage('Maven'){
             steps{
