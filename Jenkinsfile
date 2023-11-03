@@ -11,6 +11,17 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus_cred"
 }
  stages{
+    stage('Pre-Build Cleanup') {
+     steps {
+         deleteDir()  // Delete the workspace before the build
+         }
+       }
+
+
+
+
+
+
         stage('Git'){
             steps{
                 echo "Getting project from git....."
