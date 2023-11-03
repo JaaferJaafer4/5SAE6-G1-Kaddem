@@ -32,7 +32,7 @@ pipeline {
         }
         stage('JUnit/Mockito') {
             steps {
-                sh 'mvn test -X'
+                sh 'mvn test'
                 junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
