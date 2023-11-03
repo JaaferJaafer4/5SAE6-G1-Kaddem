@@ -102,6 +102,7 @@ pipeline {
        stage('Docker Compose') {
             steps {
                 script {
+                   sh 'docker-compose down'
                    sh 'docker compose up -d'
               }
             }
