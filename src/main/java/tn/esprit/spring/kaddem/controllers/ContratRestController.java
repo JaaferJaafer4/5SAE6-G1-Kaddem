@@ -29,7 +29,7 @@ public class ContratRestController {
 		return contratService.retrieveContrat(contratId);
 	}
 
-	// http://localhost:8089/Kaddem/econtrat/add-contrat
+	// http://localhost:8089/Kaddem/contrat/add-contrat
 	@PostMapping("/add-contrat")
 	public Contrat addContrat(@RequestBody Contrat c) {
 		Contrat contrat = contratService.addContrat(c);
