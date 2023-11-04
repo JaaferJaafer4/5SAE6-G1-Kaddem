@@ -29,11 +29,7 @@ pipeline {
             }
         }
         
-        stage('SonarQube') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube'
-            }
-        }
+
         stage('JUnit/Mockito') {
             steps {
                 sh 'mvn test'
@@ -45,6 +41,11 @@ pipeline {
                            jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**')
             }
                 }
+                        stage('SonarQube') {
+                            steps {
+                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube'
+                            }
+                        }
                  stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
