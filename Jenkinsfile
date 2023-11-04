@@ -42,7 +42,7 @@ pipeline {
         }
               stage('Collect JaCoCo Coverage') {
                     steps{
-                                  def excludes = '**/entities/**,**/repositories/**,**/config/**,**/services/UniversiteServiceImpl.class,**/services/EtudiantServiceImpl.class,**/services/EquipeServiceImpl.class,**/services/DepartementServiceImpl.class,**/controllers/DepartementRestController.class,**/controllers/EquipeRestController.class,**/controllers/EtudiantRestController.class,**/controllers/UniversiteRestController.class,tn/esprit/spring/kaddem/KaddemApplication.class'
+                                  def excludes = "**/entities/**,**/repositories/**,**/config/**,**/services/UniversiteServiceImpl.class,**/services/EtudiantServiceImpl.class,**/services/EquipeServiceImpl.class,**/services/DepartementServiceImpl.class,**/controllers/DepartementRestController.class,**/controllers/EquipeRestController.class,**/controllers/EtudiantRestController.class,**/controllers/UniversiteRestController.class,tn/esprit/spring/kaddem/KaddemApplication.class"
                                       jacoco(execPattern: '**/target/jacoco.exec', excludes: excludes)
             }
                 }
