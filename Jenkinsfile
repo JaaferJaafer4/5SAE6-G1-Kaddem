@@ -40,6 +40,11 @@ pipeline {
                 junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
+              stage('Collect JaCoCo Coverage') {
+                    steps{
+                           jacoco(execPattern: '**/target/jacoco.exec')
+            }
+                }
                  stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'

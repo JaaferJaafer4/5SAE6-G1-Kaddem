@@ -1,6 +1,7 @@
 package tn.esprit.spring.kaddem.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,8 @@ import tn.esprit.spring.kaddem.entities.Contrat;
 import tn.esprit.spring.kaddem.entities.Specialite;
 import tn.esprit.spring.kaddem.services.IContratService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,6 +100,57 @@ public class ContratRestControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void testAssignContratToEtudiant() throws Exception {
+
+        Integer idContrat = 1;
+        String nomE = "Jaafar";
+        String prenomE = "Jaafar";
+      //  Contrat contrat1 = new Contrat(new Date(), new Date(), Specialite.IA, false, 958236);
+       // Mockito.when(contratService.affectContratToEtudiant(idContrat, nomE, prenomE)).thenReturn(contrat);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/contrat/assignContratToEtudiant/{idContrat}/{nomE}/{prenomE}", idContrat, nomE, prenomE))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testGetnbContratsValides() throws Exception {
+
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
+        LocalDate endDate = LocalDate.of(2004, 1, 1);
+
+        String startDateString = startDate.format(DateTimeFormatter.ISO_DATE);
+        String endDateString = endDate.format(DateTimeFormatter.ISO_DATE);
+
+      //  Integer nbContratsValides = 5;
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contrat/getnbContratsValides/{startDate}/{endDate}", startDateString, endDateString))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void testMajStatusContrat() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/contrat/majStatusContrat"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testCalculChiffreAffaireEntreDeuxDates() throws Exception {
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
+        LocalDate endDate = LocalDate.of(2004, 1, 1);
+
+        String startDateString = startDate.format(DateTimeFormatter.ISO_DATE);
+        String endDateString = endDate.format(DateTimeFormatter.ISO_DATE);
+
+       // float chiffreAffaire = 12345.67f;
+     //   Mockito.when(contratService.getChiffreAffaireEntreDeuxDates(startDate, endDate)).thenReturn(chiffreAffaire);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contrat/calculChiffreAffaireEntreDeuxDate/{startDate}/{endDate}",startDateString,endDateString))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+    }
 
     private static String asJsonString(final Object obj) {
         try {
