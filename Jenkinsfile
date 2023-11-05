@@ -47,7 +47,7 @@ pipeline {
                                sh 'mvn sonar:sonar'
                             }
                             }
-                        }
+
            stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
