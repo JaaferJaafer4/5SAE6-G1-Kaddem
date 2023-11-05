@@ -38,7 +38,7 @@ pipeline {
         }
               stage('Collect JaCoCo Coverage') {
                     steps{
-                           jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,**/services/**,**/controllers/**')
+                           jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,**/services/**,**/controllers/**,tn/esprit/spring/kaddem/KaddemApplication.class')
             }
                 }
            stage('SonarQube') {
