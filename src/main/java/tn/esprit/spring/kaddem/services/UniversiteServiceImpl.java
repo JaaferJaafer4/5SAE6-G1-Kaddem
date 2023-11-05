@@ -1,5 +1,6 @@
 package tn.esprit.spring.kaddem.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.kaddem.entities.Departement;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 
 @Service
+@Slf4j
 public class UniversiteServiceImpl implements IUniversiteService{
 @Autowired
     UniversiteRepository universiteRepository;
@@ -44,14 +46,20 @@ return  u;
     public void assignUniversiteToDepartement(Integer idUniversite, Integer idDepartement){
         Universite u= universiteRepository.findById(idUniversite).orElse(null);
         Departement d= departementRepository.findById(idDepartement).orElse(null);
-        if(u.getDepartements() == null)
-            u.setDepartements(new HashSet<>());
-        u.getDepartements().add(d);
-        universiteRepository.save(u);
+        try {
+            if(u.getDepartements() == null)
+                u.setDepartements(new HashSet<>());
+            u.getDepartements().add(d);
+            universiteRepository.save(u);
+        }catch (NullPointerException nullPointerException)
+        {
+            log.error(nullPointerException.getMessage());
+        }
+
     }
 
     public Set<Departement> retrieveDepartementsByUniversite(Integer idUniversite){
 Universite u=universiteRepository.findById(idUniversite).orElse(null);
-return u.getDepartements();
+      return u.getDepartements();
     }
 }
