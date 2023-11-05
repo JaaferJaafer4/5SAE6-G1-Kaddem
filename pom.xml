@@ -92,24 +92,24 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
+<!--                <configuration>-->
 
-                    <excludes>
-                        <exclude>**/entities/**</exclude>
-                        <exclude>**/repositories/**</exclude>
-                        <exclude>**/config/**</exclude>
-                        <exclude>**/services/UniversiteServiceImpl.class</exclude>
-                        <exclude>**/services/EtudiantServiceImpl.class</exclude>
-                        <exclude>**/services/EquipeServiceImpl.class</exclude>
-                        <exclude>**/services/DepartementServiceImpl.class</exclude>
-                        <exclude>**/controllers/DepartementRestController.class</exclude>
-                        <exclude>**/controllers/EquipeRestController.class</exclude>
-                        <exclude>**/controllers/EtudiantRestController.class</exclude>
-                        <exclude>**/controllers/UniversiteRestController.class</exclude>
-                        <exclude>tn/esprit/spring/kaddem/KaddemApplication.class</exclude>
-                    </excludes>
+<!--                    <excludes>-->
+<!--                        <exclude>**/entities/**</exclude>-->
+<!--                        <exclude>**/repositories/**</exclude>-->
+<!--                        <exclude>**/config/**</exclude>-->
+<!--                        <exclude>**/services/UniversiteServiceImpl.class</exclude>-->
+<!--                        <exclude>**/services/EtudiantServiceImpl.class</exclude>-->
+<!--                        <exclude>**/services/EquipeServiceImpl.class</exclude>-->
+<!--                        <exclude>**/services/DepartementServiceImpl.class</exclude>-->
+<!--                        <exclude>**/controllers/DepartementRestController.class</exclude>-->
+<!--                        <exclude>**/controllers/EquipeRestController.class</exclude>-->
+<!--                        <exclude>**/controllers/EtudiantRestController.class</exclude>-->
+<!--                        <exclude>**/controllers/UniversiteRestController.class</exclude>-->
+<!--                        <exclude>tn/esprit/spring/kaddem/KaddemApplication.class</exclude>-->
+<!--                    </excludes>-->
 
-                </configuration>
+<!--                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
