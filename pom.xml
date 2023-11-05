@@ -72,44 +72,33 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.8</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version> <!-- Use the latest version -->
                 <executions>
                     <execution>
-                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-report</id>
-                        <phase>package</phase>
+                        <id>report</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-
-                    <excludes>
-                        <exclude>**/entities/**</exclude>
-                        <exclude>**/repositories/**</exclude>
-                        <exclude>**/config/**</exclude>
-<!--                        <exclude>**/services/UniversiteServiceImpl.class</exclude>-->
-<!--                        <exclude>**/services/EtudiantServiceImpl.class</exclude>-->
-<!--                        <exclude>**/services/EquipeServiceImpl.class</exclude>-->
-<!--                        <exclude>**/services/DepartementServiceImpl.class</exclude>-->
-<!--                        <exclude>**/controllers/DepartementRestController.class</exclude>-->
-<!--                        <exclude>**/controllers/EquipeRestController.class</exclude>-->
-<!--                        <exclude>**/controllers/EtudiantRestController.class</exclude>-->
-<!--                        <exclude>**/controllers/UniversiteRestController.class</exclude>-->
-                        <exclude>tn/esprit/spring/kaddem/KaddemApplication.class</exclude>
-                    </excludes>
-
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
