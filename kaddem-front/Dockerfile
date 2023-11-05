@@ -4,7 +4,7 @@ COPY package*.json ./
 RUN npm install -g @angular/cli
 RUN npm install
 COPY . .
-RUN ng build --prod
+RUN ng build --configuration=production
 FROM nginx:alpine
 COPY --from=builder /app/dist/* /usr/share/nginx/html/
 EXPOSE 80
