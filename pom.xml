@@ -99,6 +99,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/entities/**</exclude>
+                        <exclude>**/repositories/**</exclude>
+                        <exclude>**/KaddemApplication.class</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
