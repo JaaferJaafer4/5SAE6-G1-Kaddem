@@ -29,7 +29,11 @@ pipeline {
             }
         }
         
-
+       stage('SonarQube') {
+                            steps {
+                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube -X'
+                            }
+                        }
         stage('JUnit/Mockito') {
             steps {
                 sh 'mvn test'
@@ -41,11 +45,7 @@ pipeline {
                            jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,tn/esprit/spring/kaddem/KaddemApplication.class')
             }
                 }
-           stage('SonarQube') {
-                            steps {
-                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube -X'
-                            }
-                        }
+
            stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
