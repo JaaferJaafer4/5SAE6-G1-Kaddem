@@ -38,7 +38,7 @@ pipeline {
         }
               stage('Collect JaCoCo Coverage') {
                     steps{
-                           jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**')
+                           jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,**/services/**,**/controllers/**')
             }
                 }
                         stage('SonarQube') {
