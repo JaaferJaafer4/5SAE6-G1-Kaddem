@@ -43,11 +43,9 @@ pipeline {
                 }
            stage('SonarQube') {
                             steps {
-                            withSonarQubeEnv(credentialsId: 'sonar_token')
-                               sh 'mvn sonar:sonar'
+                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube -X'
                             }
-                            }
-
+                        }
            stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
