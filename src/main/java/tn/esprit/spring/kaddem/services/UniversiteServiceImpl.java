@@ -7,6 +7,7 @@ import tn.esprit.spring.kaddem.entities.Universite;
 import tn.esprit.spring.kaddem.repositories.DepartementRepository;
 import tn.esprit.spring.kaddem.repositories.UniversiteRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +43,8 @@ return  u;
     public void assignUniversiteToDepartement(Integer idUniversite, Integer idDepartement){
         Universite u= universiteRepository.findById(idUniversite).orElse(null);
         Departement d= departementRepository.findById(idDepartement).orElse(null);
+        if(u.getDepartements() == null)
+            u.setDepartements(new HashSet<>());
         u.getDepartements().add(d);
         universiteRepository.save(u);
     }
