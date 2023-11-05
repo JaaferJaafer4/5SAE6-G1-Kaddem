@@ -1,0 +1,148 @@
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Contact</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12">
+					<div class="wrapper">
+						<div class="row mb-5">
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-map-marker"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-phone"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-paper-plane"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+				          </div>
+			          </div>
+							</div>
+							<div class="col-md-3">
+								<div class="dbox w-100 text-center">
+			        		<div class="icon d-flex align-items-center justify-content-center">
+			        			<span class="fa fa-globe"></span>
+			        		</div>
+			        		<div class="text">
+				            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+				          </div>
+			          </div>
+							</div>
+						</div>
+						<div class="row no-gutters">
+							<div class="col-md-7">
+								<div class="contact-wrap w-100 p-md-5 p-4">
+				
+							
+			
+									<form id="contactForm" name="contactForm" class="contactForm">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="label" for="name">Debut contrat</label>
+													<input type="date" class="form-control" name="start" id="start" #start="ngModel" [(ngModel)]="contrat.dateDebutContrat">
+												</div>
+											</div>
+											<div class="col-md-6"> 
+												<div class="form-group">
+													<label class="label" for="email">Fin contrat</label>
+													<input type="date" class="form-control" name="end" id="end" #end="ngModel" [(ngModel)]="contrat.dateFinContrat">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Specialite</label>
+                                                    <select name="speciality" class="form-control" id="speciality" #speciality="ngModel" [(ngModel)]="contrat.specialite">
+                                                        <option value="IA">IA</option>
+                                                        <option value="RESEAUX">RESEAUX</option>
+                                                        <option value="CLOUD">CLOUD</option>
+                                                        <option value="SECURITE">SECURITE</option>
+                                                    </select>                                                    
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="#">Archive</label>
+                                                    <select name="archive" class="form-control" id="archive" #archive>
+                                                        <option value=true>Oui</option>
+                                                        <option value=false>Non</option>
+                                                    </select>
+                                                </div>
+											</div>
+                                            <div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Montant</label>
+													<input type="number" class="form-control" name="montant" id="montant" #montant="ngModel" [(ngModel)]="contrat.montantContrat">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<input type="submit" value="Apply" class="btn btn-primary" (click)="addContrat(archive)">
+													<div class="submitting"></div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="col-md-5 d-flex align-items-stretch">
+								<div class="info-wrap w-100 p-5 img" style="background-image: url(assets/images/img.jpg);">
+			          </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="col-md-11 ml-5">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Debut Contrat</th>
+                <th scope="col">Fin Contrat</th>
+                <th scope="col">Archive</th>
+                <th scope="col">Montant</th>
+                <th scope="col">Etudiant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contrat of list_contrat">
+                <th>{{contrat.dateDebutContrat | date}}</th>
+                <td>{{contrat.dateFinContrat | date}}</td>
+                <td>{{contrat.archive}}</td>
+                <td>{{contrat.montantContrat}}</td>
+                <td *ngIf="contrat.etudiant != null">{{contrat.etudiant.nomE}}</td>
+                <td *ngIf="contrat.etudiant == null">none</td>
+              </tr>
+       
+            </tbody>
+          </table>
+          
+         
+        </div>
+	</section>
+
+
+
