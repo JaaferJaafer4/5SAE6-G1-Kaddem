@@ -117,5 +117,16 @@ pipeline {
               }
             }
           }
+
+          stage('Email') {
+                      steps {
+                          script {
+                              emailext subject: 'Build Status',
+                                       body: 'The build and deployment are complete.',
+                                       to: 'jaafer.jaafer@esprit.tn',
+                                       attachLog: true
+                          }
+                      }
+                  }
  }
 }
