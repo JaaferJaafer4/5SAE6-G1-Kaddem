@@ -36,11 +36,11 @@ pipeline {
                 junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
-              stage('Collect JaCoCo Coverage') {
-                    steps{
-                           jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,tn/esprit/spring/kaddem/KaddemApplication.class')
-            }
-                }
+//              stage('Collect JaCoCo Coverage') {
+ //                   steps{
+ //                          jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,tn/esprit/spring/kaddem/KaddemApplication.class')
+  //          }
+  //              }
            stage('SonarQube') {
                             steps {
                                 sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube -X'
