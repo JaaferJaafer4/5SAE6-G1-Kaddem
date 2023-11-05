@@ -41,12 +41,12 @@ pipeline {
                            jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,**/services/**,**/controllers/**')
             }
                 }
-                        stage('SonarQube') {
+           stage('SonarQube') {
                             steps {
-                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube'
+                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonarqube -X'
                             }
                         }
-                 stage('Maven install') {
+           stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
             }
