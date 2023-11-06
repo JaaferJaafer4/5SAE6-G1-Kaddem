@@ -10,43 +10,26 @@
 				<div class="col-md-12">
 					<div class="wrapper">
 						<div class="row mb-5">
-							<div class="col-md-3">
+							<div class="col-md-6">
 								<div class="dbox w-100 text-center">
-			        		<div class="icon d-flex align-items-center justify-content-center">
+			        		<div class="icon d-flex align-items-center justify-content-center" style="cursor: pointer;" (click)="openAffModal(affmod)">
 			        			<span class="fa fa-map-marker"></span>
+								
 			        		</div>
-			        		<div class="text">
-				            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-				          </div>
+							<div class="text">
+								<p><span>Chiffres d'affaire</span> </p>
+							  </div>
 			          </div>
 							</div>
-							<div class="col-md-3">
+			
+			
+							<div class="col-md-6">
 								<div class="dbox w-100 text-center">
-			        		<div class="icon d-flex align-items-center justify-content-center">
-			        			<span class="fa fa-phone"></span>
-			        		</div>
-			        		<div class="text">
-				            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-				          </div>
-			          </div>
-							</div>
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-			        		<div class="icon d-flex align-items-center justify-content-center">
-			        			<span class="fa fa-paper-plane"></span>
-			        		</div>
-			        		<div class="text">
-				            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-				          </div>
-			          </div>
-							</div>
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-			        		<div class="icon d-flex align-items-center justify-content-center">
+			        		<div class="icon d-flex align-items-center justify-content-center" style="cursor: pointer;" (click)="openValidesModal(nbvalides)">
 			        			<span class="fa fa-globe"></span>
 			        		</div>
 			        		<div class="text">
-				            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+				            <p><span>Nombre contrats valide</span> </p>
 				          </div>
 			          </div>
 							</div>
@@ -57,24 +40,24 @@
 				
 							
 			
-									<form id="contactForm" name="contactForm" class="contactForm">
+									<form id="contactForm" name="contactForm" class="contactForm" #f="ngForm">
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="label" for="name">Debut contrat</label>
-													<input type="date" class="form-control" name="start" id="start" #start="ngModel" [(ngModel)]="contrat.dateDebutContrat">
+													<input type="date" class="form-control" name="start" id="start" #start="ngModel" [(ngModel)]="contrat.dateDebutContrat" required>
 												</div>
 											</div>
 											<div class="col-md-6"> 
 												<div class="form-group">
 													<label class="label" for="email">Fin contrat</label>
-													<input type="date" class="form-control" name="end" id="end" #end="ngModel" [(ngModel)]="contrat.dateFinContrat">
+													<input type="date" class="form-control" name="end" id="end" #end="ngModel" [(ngModel)]="contrat.dateFinContrat" required>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="label" for="subject">Specialite</label>
-                                                    <select name="speciality" class="form-control" id="speciality" #speciality="ngModel" [(ngModel)]="contrat.specialite">
+                                                    <select name="speciality" class="form-control" id="speciality" #speciality="ngModel" [(ngModel)]="contrat.specialite" required>
                                                         <option value="IA">IA</option>
                                                         <option value="RESEAUX">RESEAUX</option>
                                                         <option value="CLOUD">CLOUD</option>
@@ -85,7 +68,7 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="label" for="#">Archive</label>
-                                                    <select name="archive" class="form-control" id="archive" #archive>
+                                                    <select name="archive" class="form-control" id="archive" #archive required>
                                                         <option value=true>Oui</option>
                                                         <option value=false>Non</option>
                                                     </select>
@@ -94,12 +77,12 @@
                                             <div class="col-md-12">
 												<div class="form-group">
 													<label class="label" for="subject">Montant</label>
-													<input type="number" class="form-control" name="montant" id="montant" #montant="ngModel" [(ngModel)]="contrat.montantContrat">
+													<input type="number" class="form-control" name="montant" id="montant" #montant="ngModel" [(ngModel)]="contrat.montantContrat" required min="1000" max="99999">
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<input type="submit" value="Apply" class="btn btn-primary" (click)="addContrat(archive)">
+													<input type="submit" value="Apply" class="btn btn-primary" [disabled]="f.invalid" (click)="addContrat(archive)">
 													<div class="submitting"></div>
 												</div>
 											</div>
@@ -122,19 +105,26 @@
               <tr>
                 <th scope="col">Debut Contrat</th>
                 <th scope="col">Fin Contrat</th>
+				<th scope="col">Specialite</th>
                 <th scope="col">Archive</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Etudiant</th>
+				<th scope="col">Modifier</th>
+				<th scope="col">Supprimer</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let contrat of list_contrat">
                 <th>{{contrat.dateDebutContrat | date}}</th>
                 <td>{{contrat.dateFinContrat | date}}</td>
+				<td>{{contrat.specialite}}</td>
                 <td>{{contrat.archive}}</td>
                 <td>{{contrat.montantContrat}}</td>
                 <td *ngIf="contrat.etudiant != null">{{contrat.etudiant.nomE}}</td>
                 <td *ngIf="contrat.etudiant == null">none</td>
+				<td> <i class="fa fa-edit" (click)="openModal(content,contrat.idContrat)" style="cursor: pointer; font-size: x-large; color: #639996;"></i></td>
+				<td> <i class="fa fa-trash" (click)="deleteContrat(contrat.idContrat)" style="cursor: pointer; font-size: x-large; color: #851515;"></i></td>
+
               </tr>
        
             </tbody>
@@ -145,4 +135,127 @@
 	</section>
 
 
+	<ng-template #content let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title">Modifier Contrat</h4>
+			<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		</div>
+		<div class="modal-body">
+			<form id="contactForm" name="contactForm" class="contactForm ml-2" #fu="ngForm">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="label" for="name">Debut contrat</label>
+							<input type="date" class="form-control" name="start" id="start" #startup="ngModel" [(ngModel)]="contrat_update.dateDebutContrat" required="">
+						</div>
+					</div>
+					<div class="col-md-6"> 
+						<div class="form-group">
+							<label class="label" for="email">Fin contrat</label>
+							<input type="date" class="form-control" name="end" id="end" #endup="ngModel" [(ngModel)]="contrat_update.dateFinContrat" required="">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="label" for="subject">Specialite</label>
+							<select name="speciality" class="form-control" id="speciality" #specialityup="ngModel" [(ngModel)]="contrat_update.specialite" required="">
+								<option value="IA">IA</option>
+								<option value="RESEAUX">RESEAUX</option>
+								<option value="CLOUD">CLOUD</option>
+								<option value="SECURITE">SECURITE</option>
+							</select>                                                    
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="label" for="#">Archive</label>
+							<select name="archive" class="form-control" id="archive" #archiveup>
+								<option value=true>Oui</option>
+								<option value=false>Non</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label class="label" for="subject">Montant</label>
+							<input type="number" class="form-control" name="montant" id="montant" #montant="ngModel" [(ngModel)]="contrat_update.montantContrat" required min="1000" max="99999">
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="submit" value="Update" class="btn btn-primary" [disabled]="fu.invalid" (click)="updateContrat(archiveup)">
+							<div class="submitting"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+		</div>
+	</ng-template>
+	
+	
 
+	<ng-template #nbvalides let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title">Modifier Contrat</h4>
+			<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		</div>
+		<div class="modal-body">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="label" for="name">Debut contrat</label>
+					<input type="date" class="form-control" name="start"  #startva>
+				</div>
+			</div>
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label class="label" for="email">Fin contrat</label>
+					<input type="date" class="form-control" name="end" id="end" #endva>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<input type="submit" value="Get" class="btn btn-primary"  (click)="nbvalidesContrats(startva,endva)">
+					<div class="submitting"></div>
+				</div>
+			</div>
+			<h1 style="color: #851515;">{{nbValides}}</h1>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+		</div>
+	</ng-template>
+
+
+	<ng-template #affmod let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title">Modifier Contrat</h4>
+			<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		</div>
+		<div class="modal-body">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="label" for="name">Debut contrat</label>
+					<input type="date" class="form-control" name="start"  #startva>
+				</div>
+			</div>
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label class="label" for="email">Fin contrat</label>
+					<input type="date" class="form-control" name="end" id="end" #endva>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<input type="submit" value="Get" class="btn btn-primary"  (click)="nbAffContrats(startva,endva)">
+					<div class="submitting"></div>
+				</div>
+			</div>
+			<h1 style="color: #155885;">{{nbAff | number: '1.0-2'}}</h1>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+		</div>
+	</ng-template>

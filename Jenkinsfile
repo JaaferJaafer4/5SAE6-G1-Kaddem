@@ -94,7 +94,8 @@ pipeline {
   stage('build images') {
             steps {
                 script {
-                    sh 'docker build -t jaafarjaafar/devops:backend .'
+                     sh 'docker build -t jaafarjaafar/devops:backend .'
+                     sh 'docker build kaddem-front -t jaafarjaafar/devops:frontend'
                      sh 'docker pull mysql:5.7'
                 }
             }
