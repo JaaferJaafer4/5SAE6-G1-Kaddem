@@ -112,8 +112,8 @@ stage('Pull MySQL Image') {
              }
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
-             def frontendImageExists = sh(script: 'docker image ls | grep user/devops:frontend', returnStatus: true) == 0
-             if (frontendImageExists) {
+           if [[ "$(docker images -q jaafarjaafar:devops:backend 2> /dev/null)" != "" ]]; then
+
                  sh 'docker rmi user/devops:frontend'
              }
              sh 'docker build -t jaafarjaafar/devops:frontend kaddem-front'
