@@ -1,0 +1,5 @@
+tn\esprit\spring\kaddem\controllers\ContratRestController.class
+tn\esprit\spring\kaddem\controllers\UniversiteRestController.class
+tn\esprit\spring\kaddem\controllers\EtudiantRestController.class
+tn\esprit\spring\kaddem\KaddemApplication.class
+tn\esprit\spring\kaddem\services\EtudiantServiceImpl.class
