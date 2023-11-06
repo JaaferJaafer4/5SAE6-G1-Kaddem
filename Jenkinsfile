@@ -102,22 +102,24 @@ stage('Pull MySQL Image') {
     }
 }
 
-  stage('build images') {
-            steps {
-                script {
-                   def backendImageExists = sh(script: 'docker image ls | grep user/devops:backend', returnStatus: true) == 0
-                       if (!backendImageExists) {
-                           sh 'docker build -t user/devops:backend .'
-                       }
+ stage('build images') {
+     steps {
+         script {
+             def backendImageExists = sh(script: 'docker image ls | grep user/devops:backend', returnStatus: true) == 0
+             if (backendImageExists) {
+                 sh 'docker rmi user/devops:backend'  // Delete the old backend image
+             }
+             sh 'docker build -t user/devops:backend .'
 
-                       def frontendImageExists = sh(script: 'docker image ls | grep user/devops:frontend', returnStatus: true) == 0
-                       if (!frontendImageExists) {
-                           sh 'docker build -t user/devops:frontend kaddem-front'
-                       }
-
-                }
-            }
+             def frontendImageExists = sh(script: 'docker image ls | grep user/devops:frontend', returnStatus: true) == 0
+             if (frontendImageExists) {
+                 sh 'docker rmi user/devops:frontend'  // Delete the old frontend image
+             }
+             sh 'docker build -t user/devops:frontend kaddem-front'
          }
+     }
+ }
+
         //      stage('push images to hub') {
         //     steps {
         //         script {
