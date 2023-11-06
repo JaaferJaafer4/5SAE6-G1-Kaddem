@@ -113,7 +113,8 @@ pipeline {
        stage('Docker Compose') {
             steps {
                 script {
-                   sh 'docker-compose down'
+                   sh 'docker-compose down -v'
+                   sh 'docker-compose build'
                    sh 'docker compose up -d'
               }
             }
