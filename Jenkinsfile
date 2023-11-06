@@ -91,12 +91,30 @@ pipeline {
              }
         }
 
+stage('Pull MySQL Image') {
+    steps {
+        script {
+            def mysqlImage = docker.image('mysql:5.7')
+            if (!mysqlImage.exists()) {
+                sh 'docker pull mysql:5.7'
+            }
+        }
+    }
+}
+
   stage('build images') {
             steps {
                 script {
-                     sh 'docker build -t jaafarjaafar/devops:backend .'
-                     sh 'docker build kaddem-front -t jaafarjaafar/devops:frontend'
-                     sh 'docker pull mysql:5.7'
+                   def backendImageExists = sh(script: 'docker image ls | grep user/devops:backend', returnStatus: true) == 0
+                       if (!backendImageExists) {
+                           sh 'docker build -t user/devops:backend .'
+                       }
+
+                       def frontendImageExists = sh(script: 'docker image ls | grep user/devops:frontend', returnStatus: true) == 0
+                       if (!frontendImageExists) {
+                           sh 'docker build -t user/devops:frontend kaddem-front'
+                       }
+
                 }
             }
          }
@@ -113,9 +131,8 @@ pipeline {
        stage('Docker Compose') {
             steps {
                 script {
-                   sh 'docker-compose down -v'
-                   sh 'docker-compose build'
-                   sh 'docker compose up -d'
+                   sh 'docker-compose down'
+                   sh 'docker compose up -d --build'
               }
             }
           }
