@@ -112,7 +112,7 @@ stage('Pull MySQL Image') {
              }
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
-           if [[ "$(docker images -q jaafarjaafar:devops:backend 2> /dev/null)" != "" ]]; then
+           if [[ "$(docker images -q jaafarjaafar:devops:backend 2> /dev/null)" != "" ]] {
 
                  sh 'docker rmi user/devops:frontend'
              }
