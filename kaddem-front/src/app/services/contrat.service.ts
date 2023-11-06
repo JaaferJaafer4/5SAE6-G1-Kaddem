@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ContratService {
 
-  url ="http://localhost:8089/kaddem/contrat/";
+  url ="http://http://192.168.56.20:8089/kaddem/contrat/";
   constructor(private http:HttpClient) { }
 
 
