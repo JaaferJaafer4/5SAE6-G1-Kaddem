@@ -94,13 +94,14 @@ pipeline {
 stage('Pull MySQL Image') {
     steps {
         script {
-            def mysqlImage = docker.image('mysql:5.7')
-            if (!mysqlImage.exists()) {
+            def mysqlImageList = sh(script: 'docker image ls mysql:5.7', returnStdout: true).trim()
+            if (!mysqlImageList.contains('mysql:5.7')) {
                 sh 'docker pull mysql:5.7'
             }
         }
     }
 }
+
 
  stage('build images') {
      steps {
