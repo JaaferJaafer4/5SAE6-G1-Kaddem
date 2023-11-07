@@ -62,22 +62,6 @@ pipeline {
 
                             sh 'docker start nexus'
 
-                            def nexusReady = false
-                            def maxAttempts = 10
-                            def sleepTime = 30
-
-                            for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-                                sh 'docker exec nexus curl --fail http://localhost:8081/'
-                                if (currentBuild.resultIsNotWorseThan('SUCCESS')) {
-                                    nexusReady = true
-                                    break
-                                }
-
-                                echo "Nexus is not yet available, waiting for ${sleepTime} seconds..."
-                                sleep sleepTime
-                            }
-
-                            if (nexusReady) {
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
@@ -110,7 +94,7 @@ pipeline {
                     sh 'docker stop nexus'
                  }
                  }
-             }
+
         }
 
 stage('Pull MySQL Image') {
