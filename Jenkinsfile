@@ -163,6 +163,19 @@ stage('docker compose down')
             }
           }
 
+stage('Grafana') {
+    steps {
+        script {
+            def grafanaEndpoint = "http://192.168.56.20:3000/api/datasources/proxy/1/api/v1/query"
+            def query = "up"
+
+            withCredentials([usernamePassword(credentialsId: 'grafana-cred', usernameVariable: 'admin', passwordVariable: 'grafana')]) {
+                def grafanaResponse = sh(script: "curl -s -u ${admin}:${grafana} '${grafanaEndpoint}?query=${query}'", returnStdout: true).trim()
+                echo "Grafana Response: ${grafanaResponse}"
+            }
+        }
+    }
+}
           stage('Email') {
                       steps {
                           script {
