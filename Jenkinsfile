@@ -89,7 +89,7 @@ pipeline {
                      } else {
                          error "*** File: ${artifactPath}, could not be found";
                     }
-                    sh 'docker stop nexus'
+                    sh 'docker stop nexus' //
                  }
              }
         }
