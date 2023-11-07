@@ -102,6 +102,15 @@ stage('Pull MySQL Image') {
     }
 }
 
+stage('docker compose down')
+{
+   steps {
+      script {
+            sh 'docker-compose down -v'
+
+      }
+   }
+}
 
  stage('build images') {
      steps {
@@ -131,7 +140,6 @@ stage('Pull MySQL Image') {
        stage('Docker Compose') {
             steps {
                 script {
-                   sh 'docker-compose down -v'
                    sh 'docker compose up -d --build'
               }
             }
