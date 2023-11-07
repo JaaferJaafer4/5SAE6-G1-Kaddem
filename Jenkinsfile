@@ -28,16 +28,7 @@ pipeline {
 
             }
         }
-        
-       stage('SonarQube') {
-                            steps {
-                              script {
-                              withSonarQubeEnv(installationName : 'sonar-server') {
-                                sh 'mvn sonar:sonar'
-                                }
-                                }
-                            }
-                        }
+
         stage('JUnit/Mockito') {
             steps {
                 sh 'mvn test'
@@ -49,7 +40,15 @@ pipeline {
                            jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,tn/esprit/spring/kaddem/KaddemApplication.class')
             }
                 }
-
+                    stage('SonarQube') {
+                                            steps {
+                                              script {
+                                              withSonarQubeEnv(installationName : 'sonar-server') {
+                                                sh 'mvn sonar:sonar'
+                                                }
+                                                }
+                                            }
+                                        }
            stage('Maven install') {
              steps {
                 sh 'mvn install -DskipTests'
@@ -120,16 +119,17 @@ stage('docker compose down')
             sh 'docker rmi jaafarjaafar/devops:backend'
             sh 'docker rmi jaafarjaafar/devops:frontend'
              }
-    /*        def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
+           def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
 
           if (backImageExists == 0) {
-                sh 'docker rmi backend'
+                sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi backend'
             }
 
             def frontImageExists = sh(script: 'docker image ls | grep frontend', returnStatus: true)
               if (frontImageExists == 0) {
-                   sh 'docker rmi frontend'
-                        }*/
+                   sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi frontend'
+'
+                        }
 
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
