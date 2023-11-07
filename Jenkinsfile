@@ -43,11 +43,11 @@ pipeline {
                     stage('SonarQube') {
                                             steps {
                                               script {
-                                              sh 'docker start sonarqube'
+
                                               withSonarQubeEnv(installationName : 'sonar-server') {
                                                 sh 'mvn sonar:sonar'
                                                 }
-                                                sh 'docker stop sonarqube'
+
                                                 }
                                             }
                                         }
