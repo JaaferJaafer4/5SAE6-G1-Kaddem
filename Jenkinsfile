@@ -115,11 +115,22 @@ stage('docker compose down')
  stage('build images') {
      steps {
          script {
-          def backendImageExists = sh(script: 'docker image ls | grep jaafarjaafar/devops', returnStatus: true)
-          if (backendImageExists == 0) {
+          def tagsExists = sh(script: 'docker image ls | grep jaafarjaafar/devops', returnStatus: true)
+          if (tagsExists == 0) {
             sh 'docker rmi jaafarjaafar/devops:backend'
             sh 'docker rmi jaafarjaafar/devops:frontend'
              }
+            def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
+
+          if (backImageExists == 0) {
+                sh 'docker rmi backend'
+            }
+
+            def frontImageExists = sh(script: 'docker image ls | grep frontend', returnStatus: true)
+              if (frontImageExists == 0) {
+                   sh 'docker rmi frontend'
+                        }
+
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
              sh 'docker build -t jaafarjaafar/devops:frontend kaddem-front'
