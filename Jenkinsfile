@@ -59,7 +59,7 @@ pipeline {
                 stage("Nexus") {
             steps {
                 script {
-                    // Start Nexus container if it's not already running
+
                             sh 'docker start nexus'
 
                             def nexusReady = false
