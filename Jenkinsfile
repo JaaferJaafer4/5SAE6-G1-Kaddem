@@ -109,7 +109,7 @@ stage('Pull MySQL Image') {
           def backendImageExists = sh(script: 'docker image ls | grep jaafarjaafar/devops', returnStatus: true)
           if (backendImageExists == 0) {
             sh 'docker rmi jaafarjaafar/devops:backend'
-            sh 'docker rmi jaafarjaafar/devops:backend'
+            sh 'docker rmi jaafarjaafar/devops:frontend'
              }
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
