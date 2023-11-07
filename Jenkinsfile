@@ -128,7 +128,7 @@ stage('docker compose down')
             def frontImageExists = sh(script: 'docker image ls | grep frontend', returnStatus: true)
               if (frontImageExists == 0) {
                    sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi frontend'
-'
+
                         }
 
              sh 'docker build -t jaafarjaafar/devops:backend .'
