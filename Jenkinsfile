@@ -53,7 +53,7 @@ pipeline {
                                         }
            stage('Maven install') {
              steps {
-                sh 'mvn install -DskipTests'
+                sh 'mvn install -DskipTests -U'
             }
          }
                 stage("Nexus") {
