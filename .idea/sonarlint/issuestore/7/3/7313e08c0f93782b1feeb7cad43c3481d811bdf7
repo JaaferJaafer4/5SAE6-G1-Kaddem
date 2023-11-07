@@ -1,0 +1,12 @@
+
+n	java:S1359"YReduce the total number of break and continue statements in this loop to use at most one.(Ï¦ï¦
+n	java:S1352"YReduce the total number of break and continue statements in this loop to use at most one.(ÎºÐí
+f	java:S117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ˆ¾­
+f	java:S117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×è³Ò
+m
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(ÿ‚¡†üÿÿÿÿ
+Q	java:S1250"<This block of commented-out lines of code should be removed.(°óêî
+Q	java:S1258"<This block of commented-out lines of code should be removed.(§«ÆÜ
+=
+java:S1125@"'Remove the unnecessary boolean literal.(ºÙéÓ
+V	java:S125A"<This block of commented-out lines of code should be removed.(’¼¦¸ýÿÿÿÿ
