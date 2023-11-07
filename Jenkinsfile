@@ -26,12 +26,13 @@ pipeline {
                   }
             }
         }
-        stage ('Sonarqube'){ 
+       stage('SONARQUBE') {
             steps {
                 script {
-                    sh ' mvn  Sonarqube' 
+                    dir('DevOps_Project')
+                    {sh 'mvn sonar:sonar -Dsonar.login=squ_f51f945e2a2c43603092d67732b3d09e02e773d6'}
                 }
             }
-        } 
+        }
 }
 }
