@@ -122,12 +122,12 @@ stage('docker compose down')
            def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
 
           if (backImageExists == 0) {
-                sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi backend'
+                sh 'docker stop backend && docker rm backend && docker rmi backend'
             }
 
             def frontImageExists = sh(script: 'docker image ls | grep frontend', returnStatus: true)
               if (frontImageExists == 0) {
-                   sh 'docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi frontend'
+                   sh 'docker stop frontend && docker rm frontend && docker rmi frontend'
 
                         }
 
