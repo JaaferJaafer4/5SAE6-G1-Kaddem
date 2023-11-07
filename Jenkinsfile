@@ -29,8 +29,7 @@ pipeline {
        stage('SONARQUBE') {
             steps {
                 script {
-                   
-                    sh 'mvn sonar:sonar -Dsonar.login=squ_f51f945e2a2c43603092d67732b3d09e02e773d6'
+                      sh 'mvn sonar:sonar -Dsonar.login=squ_f51f945e2a2c43603092d67732b3d09e02e773d6'
                 }
             }
         }
