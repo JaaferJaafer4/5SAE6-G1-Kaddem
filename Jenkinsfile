@@ -26,5 +26,12 @@ pipeline {
                   }
             }
         }
+        stage ('Sonarqube'){ 
+            steps {
+                script {
+                    sh ' mvn  Sonarqube' 
+                }
+            }
+        } 
 }
 }
