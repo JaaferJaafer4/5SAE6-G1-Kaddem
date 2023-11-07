@@ -120,7 +120,7 @@ stage('docker compose down')
             sh 'docker rmi jaafarjaafar/devops:backend'
             sh 'docker rmi jaafarjaafar/devops:frontend'
              }
-            def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
+    /*        def backImageExists = sh(script: 'docker image ls | grep backend', returnStatus: true)
 
           if (backImageExists == 0) {
                 sh 'docker rmi backend'
@@ -129,7 +129,7 @@ stage('docker compose down')
             def frontImageExists = sh(script: 'docker image ls | grep frontend', returnStatus: true)
               if (frontImageExists == 0) {
                    sh 'docker rmi frontend'
-                        }
+                        }*/
 
              sh 'docker build -t jaafarjaafar/devops:backend .'
 
