@@ -10,7 +10,7 @@
     </parent>
     <groupId>tn.esprit.spring</groupId>
     <artifactId>kaddem</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>kaddem</name>
     <description>kaddem</description>
     <properties>
@@ -35,6 +35,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-actuator</artifactId>
+             <version>2.7.5</version>
+        </dependency>
+        <dependency>
+             <groupId>io.micrometer</groupId>
+             <artifactId>micrometer-registry-prometheus</artifactId>
+             <version>1.9.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -131,5 +141,12 @@
         </plugins>
         <finalName>kaddemExec</finalName>
     </build>
+         <distributionManagement>
+         <repository>
+                 <id>deploymentRepo</id>
+                  <name>Nexus Repository</name>
+                 <url>http://192.168.56.36:8081/repository/maven-releases/</url>
+          </repository>
+    </distributionManagement>
 
 </project>
