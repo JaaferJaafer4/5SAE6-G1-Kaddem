@@ -14,6 +14,7 @@ pipeline {
     stage('Pre-Build Cleanup') {
      steps {
          deleteDir()
+         sh 'docker start nexus'
          }
        }
 
@@ -40,6 +41,11 @@ pipeline {
                            jacoco(execPattern: '**/target/jacoco.exec',exclusionPattern : '**/repositories/**,**/entities/**,tn/esprit/spring/kaddem/KaddemApplication.class')
             }
                 }
+                        stage('Maven install') {
+                             steps {
+                                sh 'mvn install -DskipTests -U'
+                            }
+                         }
                     stage('SonarQube') {
                                             steps {
                                               script {
@@ -51,16 +57,11 @@ pipeline {
                                                 }
                                             }
                                         }
-           stage('Maven install') {
-             steps {
-                sh 'mvn install -DskipTests -U'
-            }
-         }
+
                 stage("Nexus") {
             steps {
                 script {
 
-                            sh 'docker start nexus'
 
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
