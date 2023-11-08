@@ -26,6 +26,13 @@ pipeline {
                   }
             }
         }
+        stage('Package'){
+             steps {
+                script {
+                    sh 'mvn package'
+                  }
+            }
+        }
        stage('SONARQUBE') {
             steps {
                 script {
