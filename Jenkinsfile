@@ -61,23 +61,6 @@ pipeline {
             steps {
                 script {
                        sh 'docker start nexus'
-
-
-                  def nexusUrl = 'http://localhost:8081'
-
-                  timeout(time: 10, unit: 'MINUTES') {
-                      retry(3) {
-                          sh "curl --fail ${nexusUrl}"
-                          if (currentBuild.resultIsNotWorseThan('SUCCESS')) {
-                              currentBuild.result = 'SUCCESS'
-                          } else {
-                              error "Nexus is not yet available"
-                          }
-                      }
-                  }
-
-
-
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
