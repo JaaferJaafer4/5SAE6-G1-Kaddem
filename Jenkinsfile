@@ -61,23 +61,23 @@ pipeline {
             steps {
                 script {
                        sh 'docker start nexus'
-             def nexusUrl = 'http://192.168.56.20:8081'
-      def nexusReady = false
-            def maxAttempts = 10
-            def sleepTime = 30  // Adjust the sleep interval as needed
 
-            for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-                sh "curl --fail ${nexusUrl}"
-                if (currentBuild.resultIsNotWorseThan('SUCCESS')) {
-                    nexusReady = true
-                    break
-                }
 
-                echo "Nexus is not yet available, waiting for ${sleepTime} seconds..."
-                sleep sleepTime
-            }
+                  def nexusUrl = 'http://localhost:8081'
 
-            if (nexusReady) {
+                  timeout(time: 10, unit: 'MINUTES') {
+                      retry(3) {
+                          sh "curl --fail ${nexusUrl}"
+                          if (currentBuild.resultIsNotWorseThan('SUCCESS')) {
+                              currentBuild.result = 'SUCCESS'
+                          } else {
+                              error "Nexus is not yet available"
+                          }
+                      }
+                  }
+
+
+
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
                     echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
@@ -110,7 +110,7 @@ pipeline {
                     sh 'docker stop nexus'
                  }
                  }
-                 }
+
 
         }
 
