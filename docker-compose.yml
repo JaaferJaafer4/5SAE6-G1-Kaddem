@@ -6,16 +6,16 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD
-      - MYSQL_ROOT_PASSWORD=Myroot000/
-      - MYSQL_DATABASE=kaddemdb
+      - MYSQL_ROOT_PASSWORD=zied20340000
+      - MYSQL_DATABASE=zieddb
     ports:
       - 3307:3306
     volumes:
       - db:/var/lib/mysql
     networks:
       - mynetwork
-  backend:
-    image: backend
+  kaddem:
+    image: kaddem
     depends_on:
       - mysqldb
     build: ./
@@ -24,23 +24,15 @@ services:
       - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/kaddemdb?useSSL=false",
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/zieddb?useSSL=false",
         "spring.datasource.username" : "root",
-        "spring.datasource.password" : "Myroot000/",
+        "spring.datasource.password" : "zied20340000",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"}'
     volumes:
       - ./m2:/root/.m2
     networks:
       - mynetwork
-#  frontend:
-#    image: frontend
-#    build: ./crud-tuto-front
-#    restart: on-failure
-#    ports:
-#      - 80:80
-#    networks:
-#      - mynetwork
 
 networks:
   mynetwork:
