@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD
-      - MYSQL_ROOT_PASSWORD=zied20340000
+      - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=zieddb
     ports:
       - 3307:3306
@@ -26,7 +26,7 @@ services:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/zieddb?useSSL=false",
         "spring.datasource.username" : "root",
-        "spring.datasource.password" : "zied20340000",
+        "spring.datasource.password" : "",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
         "spring.jpa.hibernate.ddl-auto" : "update"}'
     volumes:
