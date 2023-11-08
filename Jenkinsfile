@@ -33,5 +33,28 @@ pipeline {
                 }
             }
         }
+        stage('Upload to Nexus') {
+            steps {
+                 script {
+                     nexusArtifactUploader( 
+                         nexusVersion: 'nexus3',
+                         protocol: 'http',
+                         nexusUrl: '192.168.56.36:8081',
+                         groupId: 'tn.esprit.spring',
+                         version: "1.0", 
+                         repository: 'maven-releases',
+                        credentialsId: 'Nexus', 
+                        artifacts: [ 
+                            [ 
+                                artifactId: 'kaddem',
+                                classifier: '',
+                                file: "target/kaddem-1.0.jar", 
+                                type: 'jar' 
+                            ]
+                        ]
+                    ) 
+                }
+            }
+         }
 }
 }
