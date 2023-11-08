@@ -14,7 +14,6 @@ pipeline {
     stage('Pre-Build Cleanup') {
      steps {
          deleteDir()
-         sh 'docker start nexus'
          }
        }
 
@@ -61,7 +60,7 @@ pipeline {
                 stage("Nexus") {
             steps {
                 script {
-
+                       sh 'docker start nexus'
 
                     pom = readMavenPom file: "pom.xml";
                     filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
