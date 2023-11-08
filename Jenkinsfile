@@ -9,6 +9,7 @@ pipeline {
         NEXUS_URL = "192.168.56.20:8081"
         NEXUS_REPOSITORY = "maven-central-repository"
         NEXUS_CREDENTIAL_ID = "nexus_cred"
+        DOCKERHUB_CREDENTIALS = credentials('docker_pwd')
 }
  stages{
     stage('Pre-Build Cleanup') {
@@ -148,11 +149,11 @@ stage('docker compose down')
             stage('push images to hub') {
              steps {
                 script {
-                     withCredentials([string(credentialsId: 'docker_pwd', variable: 'dockerpwd')]) {
-                        sh 'docker login -u jaafarjaafar -p ${dockerpwd}'
+
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS --password-stdin'
                          sh 'docker push jaafarjaafar/devops:backend'
                          sh 'docker push jaafarjaafar/devops:frontend'
-                     }
+
                 }
              }
          }
