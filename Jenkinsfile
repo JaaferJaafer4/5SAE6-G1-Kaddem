@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                        sh 'docker start nexus'
-
+             def nexusUrl = 'http://192.168.56.20:8081'
       def nexusReady = false
             def maxAttempts = 10
             def sleepTime = 30  // Adjust the sleep interval as needed
