@@ -150,9 +150,12 @@ stage('docker compose down')
              steps {
                 script {
 
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS --password-stdin'
-                         sh 'docker push jaafarjaafar/devops:backend'
-                         sh 'docker push jaafarjaafar/devops:frontend'
+                withCredentials([string(credentialsId: 'dockerhub_pwd', variable: 'dockerhubcred')]) {
+                    sh 'docker login -u jaafarjaafar -p $dockerhubcred'
+                    sh 'docker push jaafarjaafar/devops:backend'
+                    sh 'docker push jaafarjaafar/devops:frontend'
+                }
+
 
                 }
              }
