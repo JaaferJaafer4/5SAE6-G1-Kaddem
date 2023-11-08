@@ -15,8 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry corsRegistry) {
 
 		corsRegistry.addMapping("/**")
-                .allowedOrigins("http://192.168.56.20:80")
-                .allowedOrigins("http://192.168.56.20:4200")
+                .allowedOrigins("http://frontend:80")
                 .allowedOrigins("http://localhost:4200")
                 .allowedMethods("GET", "POST",
 				"PUT", "DELETE");
@@ -26,8 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://192.168.56.20:80");
-        config.addAllowedOrigin("http://192.168.56.20:4200");
+        config.addAllowedOrigin("http://frontend:80");
         config.addAllowedOrigin("http://localhost:4200");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

@@ -145,16 +145,17 @@ stage('docker compose down')
      }
  }
 
-        //      stage('push images to hub') {
-        //     steps {
-        //         script {
-        //             withCredentials([string(credentialsId: 'docker_pwd', variable: 'dockerpwd')]) {
-        //                 sh 'docker login -u jaafarjaafar -p ${dockerpwd}'
-        //                 sh 'docker push jaafarjaafar/devops:backend'
-        //             }
-        //         }
-        //     }
-        // }
+            stage('push images to hub') {
+             steps {
+                script {
+                     withCredentials([string(credentialsId: 'docker_pwd', variable: 'dockerpwd')]) {
+                        sh 'docker login -u jaafarjaafar -p ${dockerpwd}'
+                         sh 'docker push jaafarjaafar/devops:backend'
+                         sh 'docker push jaafarjaafar/devops:frontend'
+                     }
+                }
+             }
+         }
        stage('Docker Compose') {
             steps {
                 script {
