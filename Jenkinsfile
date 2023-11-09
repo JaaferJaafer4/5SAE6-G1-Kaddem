@@ -57,7 +57,7 @@ pipeline {
                                             }
                                         }
 
-                stage("Nexus") {
+                stage("Nexus") { //
             steps {
                 script {
                        sh 'docker start nexus'
